@@ -12,8 +12,8 @@ AGameJamGameMode::AGameJamGameMode()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/CustomContent/Character"));
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
-	static ConstructorHelpers::FClassFinder<APlayerState> PlayerStateClassFinder(TEXT("/Game/CustomContent/PlayerState"));
-	PlayerStateClass = PlayerStateClassFinder.Class;
+	//static ConstructorHelpers::FClassFinder<APlayerState> PlayerStateClassFinder(TEXT("/Game/CustomContent/PlayerState"));
+	//PlayerStateClass = PlayerStateClassFinder.Class;
 
 	// use our custom HUD class
 	HUDClass = AGameJamHUD::StaticClass();
