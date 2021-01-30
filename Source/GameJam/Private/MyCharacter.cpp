@@ -15,6 +15,10 @@ AMyCharacter::AMyCharacter()
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+
+	AActor* p;
+	p->Tags.Add(FName("Char"));
 	
 }
 
@@ -40,18 +44,6 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 }
 
-void AMyCharacter::OnFire()
-{
-	// try and attack
-	if (!Tired)
-	{
-		const AActor* parent = GetOwner();
-
-		UBoxComponent* MyArrow = Cast<UBoxComponent>(parent->GetComponentByClass(UBoxComponent::StaticClass()));
-	}
-}
-
-
 void AMyCharacter::MoveForward(float Value)
 {
 	if (Value != 0.0f)
@@ -70,3 +62,14 @@ void AMyCharacter::MoveRight(float Value)
 	}
 }
 
+void AMyCharacter::OnFire_Implementation()
+{
+	// try and attack
+	if (!Tired && IT)
+	{
+		//const AActor* parent = GetOwner();
+
+		//UBoxComponent* MyArrow = Cast<UBoxComponent>(parent->GetComponentByClass(UBoxComponent::StaticClass()));
+
+	}
+}
