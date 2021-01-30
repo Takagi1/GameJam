@@ -16,9 +16,7 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-
-	AActor* p;
-	p->Tags.Add(FName("Char"));
+	this->Tags.Add(FName("Char"));
 	
 }
 
@@ -41,6 +39,13 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis("MoveForward", this, &AMyCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AMyCharacter::MoveRight);
 
+	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
+// "turn" handles devices that provide an absolute delta, such as a mouse.
+// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
+	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
+	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+
+
 
 }
 
@@ -60,6 +65,18 @@ void AMyCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
 	}
+}
+
+void AMyCharacter::TurnAtRate(float Rate)
+{
+	// calculate delta for this frame from the rate information
+	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
+}
+
+void AMyCharacter::LookUpAtRate(float Rate)
+{
+	// calculate delta for this frame from the rate information
+	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
 void AMyCharacter::OnFire_Implementation()
